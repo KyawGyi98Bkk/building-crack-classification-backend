@@ -16,7 +16,7 @@ app.add_middleware(
 )
 
 # Load trained model
-model = YOLO("backend/best.onnx")  # Ensure 'model/best.onnx' exists
+model = YOLO("best.onnx")  # Ensure 'model/best.onnx' exists
 
 @app.post("https://building-crack-classification-backend-1.onrender.com/predict/")
 async def predict_damage(file: UploadFile = File(...)):
