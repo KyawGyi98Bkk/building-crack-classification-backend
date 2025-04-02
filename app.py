@@ -16,7 +16,7 @@ app.add_middleware(
 )
 
 # Load trained model
-model = YOLO("D:/Crack_Classification/runs/classify/train5/weights/best.onnx")  # Ensure 'model/best.onnx' exists
+model = YOLO("backend/train5/weights/best.onnx")  # Ensure 'model/best.onnx' exists
 
 @app.post("/predict/")
 async def predict_damage(file: UploadFile = File(...)):
