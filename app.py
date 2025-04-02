@@ -17,13 +17,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-<<<<<<< HEAD
+
 # Load trained model
+
 model = YOLO("best.onnx")  # Ensure 'model/best.onnx' exists
-=======
+
 # Load the trained YOLO model
 MODEL_PATH = "best.onnx"
->>>>>>> 1bf84a616ece420424263d77275b98153fd59eaa
+
+
+model = YOLO("backend/best.onnx")  # Ensure 'model/best.onnx' exists
+
 
 # Ensure model file exists before loading
 if not os.path.exists(MODEL_PATH):
