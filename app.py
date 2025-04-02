@@ -24,7 +24,7 @@ app.add_middleware(
 model = YOLO("best.onnx")  # Ensure 'model/best.onnx' exists
 
 # Load the trained YOLO model
-MODEL_PATH = "best.onnx"
+MODEL_PATH = "D:/Crack_Classification/backend/train5/weights/best.onnx"
 
 
 model = YOLO("best.onnx")  # Ensure 'model/best.onnx' exists
