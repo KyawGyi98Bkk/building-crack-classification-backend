@@ -4,10 +4,12 @@ import torch
 from ultralytics import YOLO
 from PIL import Image
 import io
+import os
 
+# Initialize FastAPI app
 app = FastAPI()
 
-# Allow frontend to access the backend
+# Enable CORS (Allows frontend to access the backend)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Allow all domains
@@ -15,15 +17,38 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Load trained model
-model = YOLO("backend/best.onnx")  # Ensure 'model/best.onnx' exists
+# Load the trained YOLO model
+MODEL_PATH = "best.onnx"
 
-@app.post("https://building-crack-classification-backend-1.onrender.com/predict/")
+# Ensure model file exists before loading
+if not os.path.exists(MODEL_PATH):
+    raise FileNotFoundError(f"Error: Model file '{MODEL_PATH}' not found!")
+
+model = YOLO(MODEL_PATH)
+
+# Define label mapping
+LABEL_MAP = {0: "Minor Damage", 1: "Moderate Damage", 2: "Major Damage"}
+
+@app.get("/")
+def home():
+    """Root endpoint to verify the backend is running."""
+    return {"message": "Building Crack Classification Backend is Running!"}
+
+@app.post("/predict/")
 async def predict_damage(file: UploadFile = File(...)):
+    """Predict the crack damage level from an uploaded image."""
+    # Read image from uploaded file
     image = Image.open(io.BytesIO(await file.read()))
+
+    # Perform inference
     results = model(image)
 
-    predicted_label = results[0].probs.top1  # Get the top prediction
-    label_map = {0: "Minor Damage", 1: "Moderate Damage", 2: "Major Damage"}
+    # Extract top prediction
+    predicted_label = results[0].probs.top1  # Get the highest probability class
 
-    return {"prediction": label_map[predicted_label]}
+    return {"prediction": LABEL_MAP.get(predicted_label, "Unknown")}
+
+# Run the app on the correct host and port for Render
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=4000)
