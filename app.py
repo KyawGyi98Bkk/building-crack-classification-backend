@@ -44,6 +44,9 @@ try:
 except Exception as e:
     raise RuntimeError(f"Error loading ONNX model: {str(e)}")
 
+# Check ONNX Model Input Shape
+print("📌 ONNX Model Input Shape:", model.get_inputs()[0].shape)
+
 # ==============================
 # 🔖 Define class labels
 # ==============================
