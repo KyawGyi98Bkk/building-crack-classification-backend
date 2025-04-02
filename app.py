@@ -26,7 +26,7 @@ model = YOLO("best.onnx")  # Ensure 'model/best.onnx' exists
 MODEL_PATH = "best.onnx"
 
 
-model = YOLO("backend/best.onnx")  # Ensure 'model/best.onnx' exists
+model = YOLO("best.onnx")  # Ensure 'model/best.onnx' exists
 
 
 # Ensure model file exists before loading
