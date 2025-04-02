@@ -81,5 +81,3 @@ if __name__ == "__main__":
     
     PORT = int(os.getenv("PORT", 4000))  # Default to 4000 for local dev
     uvicorn.run(app, host="0.0.0.0", port=PORT)
-    PORT = int(os.getenv("PORT", 4000))  # Default to 4000 for local dev
-    uvicorn.run(app, host="0.0.0.0", port=PORT)
