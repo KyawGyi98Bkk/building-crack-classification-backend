@@ -5,6 +5,7 @@ from ultralytics import YOLO
 from PIL import Image
 import io
 import os
+import uvicorn
 
 # Initialize FastAPI app
 app = FastAPI()
@@ -59,5 +60,6 @@ async def predict_damage(file: UploadFile = File(...)):
 
 # Run the app on the correct host and port for Render
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=4000)
+    
+    PORT = int(os.getenv("PORT", 4000))  # Default to 4000 for local dev
+    uvicorn.run(app, host="0.0.0.0", port=PORT)
