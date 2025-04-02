@@ -46,25 +46,6 @@ def home():
     return {"message": "Building Crack Classification Backend is Running!"}
 
 @app.post("/predict/")
-# Define the model path
-MODEL_PATH = "D:/Crack_Classification/backend/train5/weights/best.onnx"  # Adjust this to your actual model path
-
-# Ensure model file exists before loading
-if not os.path.exists(MODEL_PATH):
-    raise FileNotFoundError(f"Error: Model file '{MODEL_PATH}' not found!")
-
-# Load the trained YOLO model
-model = YOLO(MODEL_PATH)
-
-# Define label mapping (Update based on your actual classes)
-LABEL_MAP = {0: "Minor Damage", 1: "Moderate Damage", 2: "Major Damage"}
-
-@app.get("/")
-def home():
-    """Root endpoint to verify the backend is running."""
-    return {"message": "Building Crack Classification Backend is Running!"}
-
-@app.post("/predict/")
 async def predict_damage(file: UploadFile = File(...)):
     """Predict the crack damage level from an uploaded image."""
     try:
