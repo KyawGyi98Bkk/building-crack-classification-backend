@@ -1,7 +1,8 @@
 import requests
 
-url = "https://crack-classification-backend.onrender.com/"
+url = "https://building-crack-classification-backend-1.onrender.com"
 files = {"file": open("test_img2.jpg", "rb")}
+
 
 response = requests.post(url, files=files)
 
