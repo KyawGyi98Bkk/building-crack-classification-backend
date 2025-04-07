@@ -31,7 +31,7 @@ app.add_middleware(
 # ==============================
 # 🔍 Load trained ONNX model
 # ==============================
-MODEL_PATH = "train5/weights/best.onnx"
+MODEL_PATH = "train/weights/best.onnx"
 
 # Verify model file existence
 if not os.path.exists(MODEL_PATH):
